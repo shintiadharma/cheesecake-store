@@ -1,4 +1,4 @@
-# cheesecake-store
+# Cheesecake Store
 
 # Link PWS: http://shintia-dharma-cheesecakestore.pbp.cs.ui.ac.id/
 
