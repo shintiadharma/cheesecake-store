@@ -1,12 +1,30 @@
-<h1>Cheesecake Store</h1>
+<html lang="en">
+<head>
+    <title>Cheesecake Store</title>
+</head>
+<body>
+    <h1>Cheesecake Store</h1>
 
-<h5>Cake's Name: </h5>
-<p>{{ name }}<p>
-<h5>Cake's Size: </h5>
-<p>{{ size }}<p>
-<h5>Price: </h5>
-<p>{{ price }}<p> 
-<h5>Description: </h5>
-<p>{{ description }}<p></p> 
-<h5>Notes: </h5>
-<p>{{ notes }}<p>
+    <strong>{{ name }} from {{ kelas }}</strong>
+    <br><br>
+    
+    {% for item in items %}
+        <h5>Cake's Name: </h5>
+        <p>{{ item.name }}</p>
+
+        <h5>Cake's Size: </h5>
+        <p>{{ item.size }}</p>
+
+        <h5>Price: </h5>
+        <p>{{ item.price }}</p>
+
+        <h5>Description: </h5>
+        <p>{{ item.description }}</p>
+
+        <h5>Notes: </h5>
+        <p>{{ item.notes }}</p>
+        <br>
+    {% endfor %}
+    
+</body>
+</html>
