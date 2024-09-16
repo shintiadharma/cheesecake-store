@@ -1,8 +1,10 @@
-<html lang="en">
-<head>
-    <title>Cheesecake Store</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Cheesecake Store - Product List
+{% endblock title %}
+
+{% block content %}
     <h1>Cheesecake Store</h1>
 
     <strong>{{ name }} from {{ kelas }}</strong>
@@ -25,6 +27,30 @@
         <p>{{ item.notes }}</p>
         <br>
     {% endfor %}
-    
-</body>
-</html>
+
+{% if not menu_item %}
+<p>Belum ada data menu pada cheesecake store.</p>
+{% else %}
+<table>
+  <tr>
+    <th>Cake's Name</th>
+    <th>Notes</th>
+  </tr>
+
+  {% comment %} Berikut cara memperlihatkan data menu di bawah baris ini 
+  {% endcomment %} 
+  {% for menu_item in menu_item %}
+  <tr>
+    <td>{{menu_item.name}}</td>
+    <td>{{menu_item.notes}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<br />
+
+<a href="{% url 'main:add_menu_item' %}">
+  <button>Add New Menu</button>
+</a>
+{% endblock content %}
