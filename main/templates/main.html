@@ -14,6 +14,15 @@
         <h5>Cake's Name: </h5>
         <p>{{ item.name }}</p>
 
+        <h5>Cake's Size: </h5>
+        <p>{{ item.size }}</p>
+
+        <h5>Price: </h5>
+        <p>{{ item.price }}</p>
+
+        <h5>Description: </h5>
+        <p>{{ item.description }}</p>
+
         <h5>Notes: </h5>
         <p>{{ item.notes }}</p>
         <br>
@@ -33,6 +42,9 @@
   {% for menu_item in menu_item %}
   <tr>
     <td>{{menu_item.name}}</td>
+    <td>{{menu_item.size}}</td>
+    <td>{{menu_item.price}}</td>
+    <td>{{menu_item.description}}</td>
     <td>{{menu_item.notes}}</td>
   </tr>
   {% endfor %}
