@@ -16,8 +16,11 @@
 - Setelah aplikasi selesai, saya melakukan deployment ke PWS dengan menjalankan 'git push pws main:master'
 
 # 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html
-Request/Client --> urls.py/Proyek (Menerima request dan memetakan URL ke views) --> views.py (Mengambil data dari model (database) atau langsung ke template) --> models.py (Jika diperlukan, mengambil data dari database menggunakan model) --> templates/HTML (Merender data dan mengembalikan response HTML ke client) --> Response/Client
 <img src="image/Bagan Client.png">
+- urls.py: Menerima request dari client dan memetakan URL yang diminta ke fungsi yang sesuai di views.py.
+- views.py: Menangani logika aplikasi. View ini mengambil data dari models.py jika diperlukan dan mengirimkan data tersebut ke template HTML.
+- models.py: Berhubungan dengan database, merepresentasikan tabel, dan digunakan oleh view untuk mengambil atau memanipulasi data dari database.
+- Template HTML: Merender data yang dikirim oleh view menjadi halaman web dinamis dan mengirimkan respon HTML ke client.
 
 # 3. Jelaskan fungsi git dalam pengembangan perangkat lunak!
 Git adalah sistem kontrol versi terdistribusi yang digunakan untuk melacak perubahan kode. Berikut adalah beberapa fungsi penting Git dalam pengembangan perangkat lunak:
