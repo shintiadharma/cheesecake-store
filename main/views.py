@@ -21,7 +21,11 @@ def add_menu_item(request):
     form = ProductForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
+        new_item = form.save(commit=False)
+        new_item.size = "30x20"  
+        new_item.price = 500000 
+        new_item.description = "Default description"  
+        new_item.save()
         return redirect('main:show_main')
 
     context = {'form': form}
