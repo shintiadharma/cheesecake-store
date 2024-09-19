@@ -82,12 +82,40 @@ csrf_token (Cross-Site Request Forgery token) adalah mekanisme keamanan yang dig
 # Tugas 3 #
 
 # 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()?
-
+- HttpResponseRedirect(): Merupakan kelas respons HTTP bawaan Django yang digunakan untuk mengarahkan (redirect) pengguna ke URL tertentu. Pada dasarnya, ini membuat respons HTTP dengan status 302 (Moved Temporarily) dan memberi tahu browser untuk mengunjungi URL yang ditentukan.
+- redirect(): Fungsi yang lebih high-level di Django yang secara internal menggunakan HttpResponseRedirect. Fungsi ini lebih fleksibel karena kita bisa melewatkan URL, nama view, atau objek model, kemudian Django akan mencari URL yang tepat.
+Sehinnga redirect() lebih fleksibel, sementara HttpResponseRedirect() hanya menerima URL sebagai argumen.
 
 # 2. Jelaskan cara kerja penghubungan model MoodEntry dengan User!
+Untuk menghubungkan model MoodEntry dengan User, Django menggunakan relasi ForeignKey. Dengan relasi ini, setiap entri MoodEntry bisa dihubungkan dengan pengguna yang membuat entri tersebut.
+- ForeignKey(User, on_delete=models.CASCADE) berarti bahwa setiap objek MoodEntry berhubungan dengan satu objek user.
+- Parameter on_delete=models.CASCADE berarti bahwa jika pengguna dihapus, semua MoodEntry yang terkait juga akan dihapus (cascade deletion).
 
 # 3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+- Authentication (Otentikasi): Proses untuk memverifikasi identitas pengguna melalui kombinasi username dan password. Django menggunakan backend otentikasi yang mengelola proses login pengguna. Django menyediakan metode seperti authenticate() untuk memverifikasi kredensial.
+- Authorization (Otorisasi): Proses menentukan hak akses pengguna terhadap fitur tertentu setelah pengguna berhasil diotentikasi. Django menggunakan permission framework yang menentukan apa yang dapat dilakukan pengguna. Dengan menggunakan User dan Group, kita bisa memberikan izin (permission) tertentu untuk setiap pengguna.
+- Pengguna login: Saat pengguna login, otentikasi dilakukan dengan memverifikasi kredensial (biasanya username dan password) menggunakan model pengguna Django (User), biasanya dengan authenticate() dan login().
 
 # 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+Django menggunakan sessions untuk mengingat pengguna yang telah login. Setiap pengguna yang login mendapatkan sesi unik yang diidentifikasi oleh cookies. Cookies ini akan disimpan di browser pengguna, dan Django menggunakan ID cookies ini untuk mencari data sesi di server.
+- Saat pengguna login, Django membuat entri sesi di database dan menyimpan informasi tentang pengguna di sana. Cookies di browser berisi referensi ke sesi ini.
+- Ketika pengguna melakukan permintaan berikutnya, Django memeriksa ID sesi di cookie untuk memulihkan informasi pengguna.
+
+Kegunaan lain dari cookies:
+- Melacak pengaturan preferensi pengguna.
+- Menyimpan informasi non-sensitif.
+
+Tidak semua cookies aman digunakan. Cookies yang tidak dienkripsi dan tidak disetel sebagai "secure" atau "HttpOnly" bisa rentan terhadap serangan.
+- Secure: Cookies hanya dikirimkan melalui koneksi HTTPS.
+- HttpOnly: Cookie tidak dapat diakses melalui JavaScript (melindungi dari serangan XSS).
 
 # 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Dimulai dengan mengaktifkan virtual environment
+- Kemudian menambahkan formulir registrasi akun dan membuat mekanisme register
+- Mengimport fungsi authenticate dan login pada views.py untuk melakukan autentikasi dan login (jika autentikasi berhasil)
+- Menambahkan form login akun dan membuat mekanisme login
+- Menambahkan import logout dan fungsi logout_user untuk melakukan mekanisme logout
+- Mengimport login_required pada views.py dan menambahkan potongan kode @login_required(login_url='/login') di atas fungsi show_main agar halaman main hanya dapat diakses oleh pengguna yang sudah login (terautentikasi)
+- Menambahkan potongan kode 'last_login': request.COOKIES['last_login'] ke dalam variabel context pada views.py untuk menambahkan informasi cookie last_login pada response yang akan ditampilkan di halaman web
+- Menghubungkan setiap objek MoodEntry yang akan dibuat dengan pengguna yang membuatnya, sehingga pengguna yang sedang terotorisasi hanya melihat mood entries yang telah dibuat sendiri
+- Dan yang terakhir adalah meng-add, commit, dan push ke GitHub
