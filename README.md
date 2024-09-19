@@ -1,9 +1,10 @@
 # Cheesecake Store
 
-# Link PWS: http://shintia-dharma-cheesecakestore.pbp.cs.ui.ac.id/
+# Link PWS: http://shintia-dharma-cheesecakestore2.pbp.cs.ui.ac.id/
 
 [Tugas 1](#tugas-1)
 [Tugas 2](#tugas-2)
+[Tugas 3](#tugas-3)
 
 # Tugas 1 #
 
@@ -76,3 +77,17 @@ csrf_token (Cross-Site Request Forgery token) adalah mekanisme keamanan yang dig
 ![Alt text](image/json_id.png)
 ![Alt text](image/xml.png)
 ![Alt text](image/xml_id.png)
+
+
+# Tugas 3 #
+
+# 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()?
+
+
+# 2. Jelaskan cara kerja penghubungan model MoodEntry dengan User!
+
+# 3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+
+# 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+
+# 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
