@@ -119,3 +119,7 @@ Tidak semua cookies aman digunakan. Cookies yang tidak dienkripsi dan tidak dise
 - Menambahkan potongan kode 'last_login': request.COOKIES['last_login'] ke dalam variabel context pada views.py untuk menambahkan informasi cookie last_login pada response yang akan ditampilkan di halaman web
 - Menghubungkan setiap objek MoodEntry yang akan dibuat dengan pengguna yang membuatnya, sehingga pengguna yang sedang terotorisasi hanya melihat mood entries yang telah dibuat sendiri
 - Dan yang terakhir adalah meng-add, commit, dan push ke GitHub
+
+# Screenshot dua akun pengguna dengan masing-masing tiga dummy #
+![Alt text](<image/Screenshot 2024-09-25 at 09.13.46.png>)
+![Alt text](<image/Screenshot 2024-09-25 at 09.14.09.png>)
