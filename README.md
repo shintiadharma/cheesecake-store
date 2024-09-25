@@ -2,11 +2,11 @@
 
 # Link PWS: http://shintia-dharma-cheesecakestore2.pbp.cs.ui.ac.id/
 
-[Tugas 1](#tugas-1)
 [Tugas 2](#tugas-2)
 [Tugas 3](#tugas-3)
+[Tugas 4](#tugas-4)
 
-# Tugas 1 #
+# Tugas 2 #
 
 # 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 - Membuat sebuah proyek django baru dengan melakukan startproject
@@ -42,7 +42,7 @@ Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena model t
 Dengan menggunakan ORM, kita dapat melakukan operasi CRUD (Create, Read, Update, Delete) dengan objek Python secara efisien tanpa harus menulis query SQL langsung.
 
 
-# Tugas 2 #
+# Tugas 3 #
 
 # 1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 Data delivery dibutuhkan untuk memastikan informasi dapat ditransmisikan antara berbagai komponen platform, memungkinkan interaksi antar sistem, pengguna, dan layanan eksternal secara real-time. Tanpa mekanisme pengiriman data yang baik, platform tidak akan mampu memberikan respons real-time atau menampilkan informasi yang akurat kepada pengguna. Ini sangat penting untuk aplikasi yang interaktif atau berbasis data seperti e-commerce atau layanan berbasis web lainnya.
@@ -79,7 +79,7 @@ csrf_token (Cross-Site Request Forgery token) adalah mekanisme keamanan yang dig
 ![Alt text](image/xml_id.png)
 
 
-# Tugas 3 #
+# Tugas 4 #
 
 # 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()?
 - HttpResponseRedirect(): Merupakan kelas respons HTTP bawaan Django yang digunakan untuk mengarahkan (redirect) pengguna ke URL tertentu. Pada dasarnya, ini membuat respons HTTP dengan status 302 (Moved Temporarily) dan memberi tahu browser untuk mengunjungi URL yang ditentukan.
