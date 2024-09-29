@@ -14,7 +14,7 @@
         <h5>Cake's Name: </h5>
         <p>{{ item.name }}</p>
 
-        <h5>Cake's Size: </h5>
+        <h5>Size: </h5>
         <p>{{ item.size }}</p>
 
         <h5>Price: </h5>
@@ -34,6 +34,9 @@
 <table>
   <tr>
     <th>Cake's Name</th>
+    <th>Size</th>
+    <th>Price</th>
+    <th>Description</th>
     <th>Notes</th>
   </tr>
 
@@ -42,6 +45,9 @@
   {% for menu_item in menu_item %}
   <tr>
     <td>{{menu_item.name}}</td>
+    <td>{{menu_item.size}}</td>
+    <td>{{menu_item.price}}</td>
+    <td>{{menu_item.description}}</td>
     <td>{{menu_item.notes}}</td>
   </tr>
   {% endfor %}
