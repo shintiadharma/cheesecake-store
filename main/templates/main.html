@@ -1,66 +1,52 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-    Cheesecake Store - Product List
-{% endblock title %}
-
+{% block meta %}
+<title>Cheesecake Store</title>
+{% endblock meta %}
 {% block content %}
-    <h1>Welcome to Cheesecake Store!</h1>
+{% include 'navbar.html' %}
+<div class="overflow-x-hidden px-4 md:px-8 pb-8 pt-24 min-h-screen bg-[#fffef0] flex flex-col">
+  
+  <!-- Horizontal display for NPM, Name, and Class -->
+  <div class="flex justify-center mb-6">
+    <div class="bg-white p-4 rounded-lg shadow-md w-full max-w-4xl">
+      <div class="flex justify-between text-left">
+        <p class="text-gray-700"><strong>NPM:</strong> {{ npm }}</p>
+        <p class="text-gray-700"><strong>Name:</strong> {{ name }}</p>
+        <p class="text-gray-700"><strong>Class:</strong> {{ class }}</p>
+      </div>
+    </div>
+  </div>
 
-    <strong>Made by {{ name }} from {{ kelas }} <3</strong>
-    <br><br>
-    
-    {% for item in items %}
-        <h5>Cake's Name: </h5>
-        <p>{{ item.name }}</p>
+  <!-- Check for menu items -->
+  {% if not menu_item %}
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+      <img src="{% static 'image/question-mark.jpg' %}" class="w-32 h-32 mb-4"/>
+      <p class="text-center text-gray-600 mt-4">Belum ada data Product pada Cheesecake Store.</p>
+    </div>
+  {% else %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      {% for product in menu_item %}
+        <div>
+          {% include 'card_product.html' with product=product %}
+        </div>
+      {% endfor %}
+    </div>  
+  {% endif %}
+  
+  <!-- Single centered button -->
+  <div class="flex justify-center mt-6">
+    <a href="{% url 'main:add_menu_item' %}" class="bg-[#f68787] hover:bg-[#f68787] text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+      Add New Product Entry
+    </a>
+  </div>
 
-        <h5>Size: </h5>
-        <p>{{ item.size }}</p>
-
-        <h5>Price: </h5>
-        <p>{{ item.price }}</p>
-
-        <h5>Description: </h5>
-        <p>{{ item.description }}</p>
-
-        <h5>Notes: </h5>
-        <p>{{ item.notes }}</p>
-        <br>
-    {% endfor %}
-
-{% if not menu_item %}
-<p>Belum ada data menu pada cheesecake store.</p>
-{% else %}
-<table>
-  <tr>
-    <th>Cake's Name</th>
-    <th>Size</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Notes</th>
-  </tr>
-
-  {% comment %} Berikut cara memperlihatkan data menu di bawah baris ini 
-  {% endcomment %} 
-  {% for menu_item in menu_item %}
-  <tr>
-    <td>{{menu_item.name}}</td>
-    <td>{{menu_item.size}}</td>
-    <td>{{menu_item.price}}</td>
-    <td>{{menu_item.description}}</td>
-    <td>{{menu_item.notes}}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
-
-<br />
-
-<a href="{% url 'main:add_menu_item' %}">
-  <button>Add New Menu</button>
-</a>
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+  <!-- Last Login Display -->
+  <div class="flex justify-center mt-4">
+    <div class="rounded-md items-center bg-[#f68787] py-2 px-4">
+      <h1 class="text-white text-center">Last Login: {{last_login}}</h1>
+    </div>
+  </div>
+</div>
 {% endblock content %}

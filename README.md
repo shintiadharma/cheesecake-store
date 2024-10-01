@@ -5,6 +5,7 @@
 [Tugas 2](#tugas-2)
 [Tugas 3](#tugas-3)
 [Tugas 4](#tugas-4)
+[Tugas 5](#tugas-5)
 
 # Tugas 2 #
 
@@ -123,3 +124,48 @@ Tidak semua cookies aman digunakan. Cookies yang tidak dienkripsi dan tidak dise
 # Screenshot dua akun pengguna dengan masing-masing tiga dummy #
 ![Alt text](<image/Screenshot 2024-09-25 at 09.13.46.png>)
 ![Alt text](<image/Screenshot 2024-09-25 at 09.14.09.png>)
+
+
+# Tugas 5 #
+
+# 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Urutan prioritas (specificity) CSS untuk sebuah elemen HTML ditentukan oleh beberapa faktor:
+
+- Inline Styles: CSS yang ditulis langsung di atribut HTML (style="") memiliki prioritas tertinggi.
+- ID Selector: Selector yang menggunakan ID (#id) memiliki prioritas lebih tinggi daripada selector kelas dan elemen.
+- Class, Attribute, and Pseudo-Class Selector: Selector yang menggunakan kelas (.class), atribut ([type="text"]), dan pseudo-class (:hover) memiliki prioritas lebih tinggi dari selector elemen.
+- Element Selector: Selector berdasarkan elemen HTML (div, p, h1) memiliki prioritas paling rendah.
+- !important: Properti CSS yang menggunakan !important akan selalu memiliki prioritas tertinggi, meskipun di-override oleh selector lain dengan nilai specificity lebih tinggi.
+
+Contoh prioritas (specificity):
+- id (ID) > .class (class) > div (element)
+
+# 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+Responsive design adalah konsep penting karena memungkinkan aplikasi web untuk diakses dengan baik di berbagai perangkat, mulai dari desktop hingga ponsel. Hal ini memastikan bahwa tampilan dan fungsionalitas tetap optimal, terlepas dari ukuran layar.
+
+Contoh aplikasi yang sudah menerapkan responsive design:
+- Google: Situs web Google secara otomatis menyesuaikan kontennya ketika diakses dari perangkat desktop maupun mobile.
+- Medium: Artikel dan elemen UI pada situs ini akan menyesuaikan dengan baik pada berbagai ukuran layar.
+
+Contoh aplikasi yang belum menerapkan responsive design:
+- Situs web lama: Banyak situs web lama yang dirancang hanya untuk layar desktop tanpa mempertimbangkan tampilan pada perangkat mobile. Hal ini menyebabkan elemen yang berantakan ketika diakses melalui perangkat mobile.
+
+# 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+- Margin: Area di luar border elemen, yang digunakan untuk memberikan jarak antara elemen yang satu dengan yang lainnya. 
+- Border: Garis di sekitar konten dan padding elemen, yang secara visual memisahkan elemen dari elemen lainnya.
+- Padding: Ruang di dalam border dan di luar konten elemen. Padding memberikan jarak antara konten elemen dan tepi border elemen.
+
+# 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+- Flexbox (Flexible Box Layout): Flexbox digunakan untuk membuat layout yang fleksibel dan responsif dengan mudah menyusun elemen di dalam container. Flexbox bekerja pada satu dimensi (horizontal atau vertikal). Flexbox berguna ketika kita perlu mendistribusikan ruang secara merata antara item atau menyelaraskannya secara dinamis dalam satu baris atau kolom.
+- Grid Layout: Grid layout adalah sistem layout dua dimensi yang memungkinkan pengembang untuk menempatkan elemen secara horizontal dan vertikal di dalam grid. Grid lebih cocok untuk layout yang lebih kompleks dan menyediakan kontrol yang lebih baik dalam menempatkan elemen-elemen di halaman.
+
+# 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Menambahkan tailwind ke aplikasi dengan menambahkan tag <meta name="viewport"> dan juga script cdn tailwind di base.html.
+- Menambahkan fitur edit product pada aplikasi dengan membuat fungsi edit_product pada views.py, membuat edit_product.html, dan menambahkan tombol edit pada setiap baris tabel di main.html.
+- Menambahkan fitur delete product pada aplikasi dengan membuat fungsi delete_product pada views.py dan menambahkan tombol hapus untuk setiap produk di main.html.
+- Menambahkan navigator bar pada aplikasi dengan membuat navbar.html dan menautkan navbar tersebut ke dalam main.html, create_mood_entry.html, dan edit_mood.html.
+- Konfigurasi static files pada aplikasi.
+- Menambahkan styles pada aplikasi dengan tailwind dan external CSS dengan membuat global.css dan menambahkan file tersebut ke base.html.
+- Menambahkan custom styling ke global.css dengan memodifikasi file global.css.
+- Styling halaman login (login.html), register(register.html), home (card_info.html & card_product.html), create product entry (add_menu_item.html), dan juga halaman edit product (edit_product.html).
+- Melakukan add-commit-push ke GitHub.

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from main.forms import ProductForm
 from main.models import Product
 from django.http import HttpResponse
@@ -17,7 +17,8 @@ def show_main(request):
     menu_item = Product.objects.filter(user=request.user)
     context = {
         'name': request.user.username,
-        'kelas': 'PBP F',
+        'class': 'PBP F',
+        'npm': '2306245655',
         'items': [
             {'name': 'Strawberry Cheesecake', 'size': '30x20', 'price': 'RP647.900', 'description': 'A party special that is loved by all. Vanilla flavored baked cheesecake with freshly picked strawberries.', 'notes': 'Customizable for your loved ones special occasion!'},
             {'name': 'Blueberry Cheesecake', 'size': '30x20', 'price': 'RP616.000', 'description': 'Our famous cheesecake pairs perfectly with natural blueberries.', 'notes': 'Customizable for your loved ones special occasion!'},
@@ -88,3 +89,26 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    # Get product entry berdasarkan id
+    mood = Product.objects.get(pk = id)
+
+    # Set product entry sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=mood)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get product berdasarkan id
+    mood = Product.objects.get(pk = id)
+    # Hapus product
+    mood.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
