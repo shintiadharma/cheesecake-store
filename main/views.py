@@ -10,11 +10,13 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.html import strip_tags
 
 @login_required(login_url='/login')
 
 def show_main(request):
-    menu_item = Product.objects.filter(user=request.user)
     context = {
         'name': request.user.username,
         'class': 'PBP F',
@@ -23,7 +25,6 @@ def show_main(request):
             {'name': 'Strawberry Cheesecake', 'size': '30x20', 'price': 'RP647.900', 'description': 'A party special that is loved by all. Vanilla flavored baked cheesecake with freshly picked strawberries.', 'notes': 'Customizable for your loved ones special occasion!'},
             {'name': 'Blueberry Cheesecake', 'size': '30x20', 'price': 'RP616.000', 'description': 'Our famous cheesecake pairs perfectly with natural blueberries.', 'notes': 'Customizable for your loved ones special occasion!'},
         ],
-        'menu_item': menu_item,
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, 'main.html', context)
@@ -41,11 +42,11 @@ def add_menu_item(request):
     return render(request, "add_menu_item.html", context)
 
 def show_xml(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -78,6 +79,8 @@ def login_user(request):
             response = HttpResponseRedirect(reverse("main:show_main"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
+      else:
+        messages.error(request, "Invalid username or password. Please try again.")
 
    else:
       form = AuthenticationForm(request)
@@ -112,3 +115,23 @@ def delete_product(request, id):
     mood.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    size = strip_tags(request.POST.get("size"))
+    price = request.POST.get("price")  
+    description = strip_tags(request.POST.get("description"))
+    notes = strip_tags(request.POST.get("notes"))
+    user = request.user 
+
+    new_product = Product(
+        name=name, size=size,
+        price=price, description=description,
+        notes=notes,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)

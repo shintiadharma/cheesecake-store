@@ -6,6 +6,7 @@
 [Tugas 3](#tugas-3)
 [Tugas 4](#tugas-4)
 [Tugas 5](#tugas-5)
+[Tugas 6](#tugas-6)
 
 # Tugas 2 #
 
@@ -169,3 +170,57 @@ Contoh aplikasi yang belum menerapkan responsive design:
 - Menambahkan custom styling ke global.css dengan memodifikasi file global.css.
 - Styling halaman login (login.html), register(register.html), home (card_info.html & card_product.html), create product entry (add_menu_item.html), dan juga halaman edit product (edit_product.html).
 - Melakukan add-commit-push ke GitHub.
+
+
+# Tugas 6 #
+
+# 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+JavaScript adalah bahasa pemrograman yang berjalan di sisi klien (client-side), yang memberikan beberapa manfaat penting dalam pengembangan aplikasi web, antara lain:
+- Interaktifitas: JavaScript memungkinkan pengembang menambahkan interaktivitas ke dalam halaman web, seperti validasi form, pemutakhiran konten secara dinamis tanpa memuat ulang halaman (AJAX), dan animasi.
+- Pengalaman Pengguna (User Experience) yang Lebih Baik: Dengan JavaScript, halaman web bisa merespons tindakan pengguna secara cepat, misalnya dengan memvalidasi form di sisi klien tanpa perlu mengirimkan request ke server, memberikan pengalaman pengguna yang lebih cepat dan efisien.
+- Penggunaan API Eksternal: JavaScript memungkinkan penggunaan API melalui teknik seperti fetch() atau XMLHttpRequest, yang memungkinkan aplikasi web untuk berinteraksi dengan layanan eksternal secara langsung, seperti pengambilan data dari server secara asinkronus.
+- Modularitas dan Reusable Code: Framework dan library JavaScript, seperti React, Angular, dan Vue.js, memungkinkan pengembangan aplikasi yang lebih modular dengan komponen yang bisa digunakan kembali.
+
+# 2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+- Await digunakan untuk memberhentikan eksekusi program secara sementara hingga Promise yang dihasilkan oleh fetch() selesai. Dengan kata lain, await memungkinkan kita menunggu hasil dari fetch() sebelum melanjutkan eksekusi kode berikutnya.
+- Jika await tidak digunakan, fetch() akan dijalankan secara asynchronous, dan program akan langsung melanjutkan ke perintah berikutnya tanpa menunggu hasil dari fetch(). Akibatnya, program mungkin mencoba memproses hasil dari fetch() sebelum datanya diterima, yang menyebabkan error atau penggunaan data yang belum tersedia.
+
+# 3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Django secara default menerapkan proteksi terhadap Cross-Site Request Forgery (CSRF) dengan memerlukan csrf_token pada setiap request POST. Ketika menggunakan AJAX POST, jika csrf_token tidak disertakan dalam request, Django akan memblokir request tersebut.
+- Dengan menambahkan decorator @csrf_exempt, Django tidak lagi melakukan validasi csrf_token untuk view tersebut. Hal ini memudahkan dalam implementasi AJAX POST tanpa perlu menyertakan csrf_token, terutama untuk endpoint atau API yang mungkin tidak memerlukan tingkat keamanan tambahan ini.
+
+# 4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+- Pembersihan data di backend tetap diperlukan karena data yang dikirimkan dari frontend masih bisa dimodifikasi oleh pengguna atau pihak ketiga yang berniat jahat, meskipun frontend sudah melakukan pembersihan.
+- Keamanan: Melakukan pembersihan hanya di frontend tidak cukup untuk melindungi aplikasi dari serangan, seperti Cross-Site Scripting (XSS) atau injeksi SQL, karena pengguna masih dapat mengubah data sebelum dikirim ke server.
+- Integritas Data: Backend bertanggung jawab untuk memastikan bahwa data yang masuk ke dalam database sudah benar-benar bersih dan valid. Bahkan jika frontend melakukan pembersihan, backend tetap harus memastikan tidak ada data yang berbahaya masuk.
+
+# 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Menambahkan Pesan Error pada Login (views.py)
+    - Memberikan feedback kepada pengguna jika terjadi kesalahan saat login, seperti username atau password yang salah.
+    - Dilakukan dengan mengimport messages dari django.contrib dan menambahkan conditional pada view login_user untuk memberikan pesan error jika login gagal.
+    - Jika form login valid, pengguna akan login dan diarahkan ke halaman utama. Jika tidak, akan muncul pesan error “Invalid username or password” pada halaman login, memberikan pengguna feedback untuk mencoba kembali.
+- Membuat Fungsi untuk Menambahkan Product dengan AJAX (views.py)
+    - Menggunakan AJAX untuk menambahkan product baru tanpa perlu me-reload halaman.
+    - Dilakukan dengan menambahkan fungsi add_product_entry_ajax yang menggunakan csrf_exempt dan require_POST untuk menerima request POST dari AJAX
+    - Fungsi ini mengambil data yang dikirim dari form dengan POST, membersihkan tag HTML dengan strip_tags, dan menyimpannya ke database.
+    - CSRF token dinonaktifkan untuk request ini menggunakan @csrf_exempt, dan require_POST memastikan hanya request POST yang diterima.
+- Menambahkan Routing untuk Fungsi AJAX (urls.py)
+    - Menambahkan URL path untuk mengakses fungsi add_product_entry_ajax.
+    - Dilakukan dengan menambahkan path baru di urls.py untuk mengakses fungsi add_product_entry_ajax.
+    - Ini memungkinkan URL /create-product-entry-ajax untuk menerima request dari AJAX, yang akan memanggil fungsi add_product_entry_ajax di views.
+- Menampilkan Data Product dengan fetch() API (main.html)
+    - Mengambil data product dari server menggunakan fetch() API dan menampilkannya secara dinamis.
+    - Dilakukan dengan menambahkan fungsi getProductEntries() dan refreshProductEntries() di main.html untuk menampilkan data product secara dinamis.
+    - Fungsi getProductEntries mengambil data product dari server dengan format JSON, dan refreshProductEntries menampilkan data tersebut pada halaman. Jika tidak ada data, pesan "Belum ada data" akan ditampilkan.
+- Membuat Modal untuk Menambahkan Product dengan AJAX (main.html)
+    - Membuat form modal yang memungkinkan pengguna menambahkan product baru menggunakan AJAX.
+    - Dilakukan dengan menambahkan product di main.html yang berisi form untuk menambahkan product entry.
+    - Modal ini akan ditampilkan ketika pengguna ingin menambahkan prpoduct baru, dan form ini dihubungkan dengan fungsi addProductEntry() untuk mengirimkan data secara AJAX.
+- Mengimplementasikan Fungsi addProductEntry untuk AJAX (main.html)
+    - Dilakukan dengan menambahkan fungsi addProductEntry() untuk menangani pengiriman form secara AJAX.
+    - Fungsi ini menggunakan fetch() untuk mengirimkan data dari form modal ke server. Setelah data berhasil disimpan, halaman tidak perlu di-reload, cukup dengan memanggil refreshProductEntries() untuk memperbarui daftar product.
+- Melindungi Aplikasi dari XSS dengan strip_tags dan DOMPurify
+    - Mencegah serangan XSS dengan membersihkan input dari tag HTML di backend dan frontend.
+    - Dilakukan dengan menggunakan strip_tags di views.py untuk menghapus tag HTML dari data yang dikirimkan pengguna.
+    - Menggunakan DOMPurify di frontend untuk memastikan data yang ditampilkan juga sudah bersih dari tag HTML.
+    - Dengan strip_tags di backend dan DOMPurify di frontend, saya memastikan data yang disimpan dan ditampilkan sudah bersih dari tag HTML yang berbahaya.
