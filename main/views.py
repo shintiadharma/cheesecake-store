@@ -13,6 +13,8 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
+import json
+from django.http import JsonResponse
 
 @login_required(login_url='/login')
 
@@ -135,3 +137,29 @@ def add_product_entry_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            print("Data yang diterima:", data)
+
+            # Membuat produk baru
+            new_product = Product.objects.create(
+                user=request.user,  # Pastikan user sudah terautentikasi
+                name=data.get("name", ""),
+                size=data.get("size", ""),
+                price=int(data.get("price", 0)),
+                description=data.get("description", ""),
+                notes=data.get("notes", "")
+            )
+
+            new_product.save()
+            return JsonResponse({"status": "success", "message": "Product created successfully!"}, status=200)
+
+        except Exception as e:
+            print("Error:", e)
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
