@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from authentication.views import login, register, logout, create_product_flutter
+from authentication.views import login, register, logout
+from main.views import create_product_flutter
 
 urlpatterns = [
     path('', include('main.urls')),
     path('auth/login/', login, name='login'),
     path('auth/register/', register, name='register'),
     path('auth/logout/', logout, name='logout'),
-    path('create-flutter/', create_product_flutter, name='create_mood_flutter'),
-
+    path('create-flutter/', create_product_flutter, name='create_product_flutter'),
 ]

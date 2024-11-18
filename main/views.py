@@ -97,10 +97,10 @@ def logout_user(request):
 
 def edit_product(request, id):
     # Get product entry berdasarkan id
-    mood = Product.objects.get(pk = id)
+    product = Product.objects.get(pk = id)
 
     # Set product entry sebagai instance dari form
-    form = ProductForm(request.POST or None, instance=mood)
+    form = ProductForm(request.POST or None, instance=product)
 
     if form.is_valid() and request.method == "POST":
         # Simpan form dan kembali ke halaman awal
@@ -112,9 +112,9 @@ def edit_product(request, id):
 
 def delete_product(request, id):
     # Get product berdasarkan id
-    mood = Product.objects.get(pk = id)
+    product = Product.objects.get(pk = id)
     # Hapus product
-    mood.delete()
+    product.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
 
@@ -141,25 +141,27 @@ def add_product_entry_ajax(request):
 @csrf_exempt
 def create_product_flutter(request):
     if request.method == 'POST':
+        # Cek apakah user terautentikasi
+        if not request.user.is_authenticated:
+            return JsonResponse({"status": "error", "message": "User not authenticated"}, status=401)
+
         try:
             data = json.loads(request.body)
             print("Data yang diterima:", data)
 
-            # Membuat produk baru
+            # Membuat produk baru dengan user terautentikasi
             new_product = Product.objects.create(
-                user=request.user,  # Pastikan user sudah terautentikasi
+                user=request.user,  # Pastikan ini tidak NULL
                 name=data.get("name", ""),
                 size=data.get("size", ""),
                 price=int(data.get("price", 0)),
                 description=data.get("description", ""),
                 notes=data.get("notes", "")
             )
-
             new_product.save()
             return JsonResponse({"status": "success", "message": "Product created successfully!"}, status=200)
 
         except Exception as e:
             print("Error:", e)
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
-    else:
-        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)

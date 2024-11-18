@@ -116,29 +116,29 @@ def logout(request):
         "message": "Logout gagal."
         }, status=401)
 
-@csrf_exempt
-def create_product_flutter(request):
-    if request.method == 'POST':
-        try:
-            print("Menerima request POST dari Flutter")
-            print("Headers:", request.headers)
-            print("Body:", request.body)
+# @csrf_exempt
+# def create_product_flutter(request):
+#     if request.method == 'POST':
+#         try:
+#             print("Menerima request POST dari Flutter")
+#             print("Headers:", request.headers)
+#             print("Body:", request.body)
 
-            data = json.loads(request.body)
-            name = data.get('name')
-            size = data.get('size')
-            price = data.get('price')
-            description = data.get('description')
-            notes = data.get('notes')
+#             data = json.loads(request.body)
+#             name = data.get('name')
+#             size = data.get('size')
+#             price = data.get('price')
+#             description = data.get('description')
+#             notes = data.get('notes')
 
-            # Cek apakah semua data ada
-            if not all([name, size, price, description, notes]):
-                return JsonResponse({'status': 'error', 'message': 'Data tidak lengkap'}, status=400)
+#             # Cek apakah semua data ada
+#             if not all([name, size, price, description, notes]):
+#                 return JsonResponse({'status': 'error', 'message': 'Data tidak lengkap'}, status=400)
 
-            print(f"Produk yang diterima: {name}, {size}, {price}, {description}, {notes}")
-            return JsonResponse({'status': 'success'}, status=200)
+#             print(f"Produk yang diterima: {name}, {size}, {price}, {description}, {notes}")
+#             return JsonResponse({'status': 'success'}, status=200)
 
-        except Exception as e:
-            print("Error:", e)
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+#         except Exception as e:
+#             print("Error:", e)
+#             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+#     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
